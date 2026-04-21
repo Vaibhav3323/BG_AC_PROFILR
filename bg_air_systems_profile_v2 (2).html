@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BG Air Systems – Commercial Air Conditioning</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:    #000000;
+    --navy:     #0a1628;
+    --navy-mid: #0d1f3c;
+    --navy-deep:#07101e;
+    --cyan:     #00c8e0;
+    --cyan-dim: #00a0b8;
+    --cyan-glow:#00e5ff;
+    --blue-text:#1a3a6b;
+    --white:    #f0f8ff;
+    --gray:     #7a9ab8;
+    --light-cyan: rgba(0,200,224,0.12);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 70% 30%, rgba(0,200,224,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(0,100,160,0.12) 0%, transparent 55%),
+                linear-gradient(160deg, #000000 0%, #040d1a 50%, #091525 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 70px 24px 50px;
+    text-align: center;
+  }
+
+  /* animated hex grid */
+  .hex-bg {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='104' viewBox='0 0 90 104'%3E%3Cpolygon points='45,0 90,26 90,78 45,104 0,78 0,26' fill='none' stroke='rgba(0,200,224,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 90px 104px;
+    animation: driftBg 25s linear infinite;
+  }
+  @keyframes driftBg {
+    from { background-position: 0 0; }
+    to   { background-position: 90px 208px; }
+  }
+
+  /* glow orbs */
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(100px); pointer-events: none;
+    animation: orbPulse 7s ease-in-out infinite alternate;
+  }
+  .orb1 { width:500px; height:500px; background:rgba(0,200,224,0.07); top:-150px; right:-100px; }
+  .orb2 { width:400px; height:400px; background:rgba(0,80,140,0.15); bottom:-100px; left:-100px; animation-delay:3s; }
+  @keyframes orbPulse { from{transform:scale(1);} to{transform:scale(1.2);} }
+
+  /* logo */
+  .logo-wrap {
+    position: relative; z-index:2;
+    margin-bottom: 32px;
+    animation: fadeDown 0.8s ease both;
+  }
+  .logo-wrap img {
+    height: 100px;
+    filter: drop-shadow(0 0 20px rgba(0,200,224,0.4));
+    /* logo has black bg so we use a glow ring instead */
+  }
+
+  /* fallback svg shield if image not used */
+  .shield-logo {
+    position: relative; z-index:2;
+    width: 120px; height: 120px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.8s ease both;
+    filter: drop-shadow(0 0 24px rgba(0,200,224,0.5));
+  }
+
+  .hero-tag {
+    position: relative; z-index:2;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 5px;
+    color: var(--cyan); text-transform: uppercase;
+    margin-bottom: 18px;
+    animation: fadeDown 0.9s ease both 0.1s;
+  }
+
+  .hero h1 {
+    position: relative; z-index:2;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 96px);
+    line-height: 0.92; letter-spacing: 3px;
+    animation: fadeDown 1s ease both 0.2s;
+  }
+  .hero h1 .cyan { color: var(--cyan); text-shadow: 0 0 30px rgba(0,200,224,0.5); }
+  .hero h1 .dk   { color: #d0eaf5; }
+
+  .hero-sub {
+    position: relative; z-index:2;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(15px,2.5vw,20px);
+    color: var(--gray); letter-spacing: 4px;
+    text-transform: uppercase; margin-top: 14px;
+    animation: fadeDown 1s ease both 0.3s;
+  }
+
+  .divider {
+    position: relative; z-index:2;
+    width: 90px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    margin: 28px auto;
+    animation: fadeDown 1s ease both 0.4s;
+  }
+
+  .hero-desc {
+    position: relative; z-index:2;
+    max-width: 560px;
+    font-size: 16px; font-weight:300; line-height:1.85;
+    color: #8ab4cc;
+    animation: fadeDown 1s ease both 0.5s;
+  }
+  .hero-desc strong { color: var(--cyan); font-weight:600; }
+
+  .hero-ctas {
+    position: relative; z-index:2;
+    display: flex; gap:14px; flex-wrap:wrap; justify-content:center;
+    margin-top: 36px;
+    animation: fadeDown 1s ease both 0.6s;
+  }
+
+  .btn {
+    display: inline-flex; align-items:center; gap:8px;
+    padding: 14px 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight:700; letter-spacing:2.5px;
+    text-transform:uppercase; text-decoration:none;
+    border-radius:2px; transition: all 0.25s; cursor:pointer;
+  }
+  .btn-cyan {
+    background: var(--cyan); color: var(--navy-deep);
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 20px rgba(0,200,224,0.3);
+  }
+  .btn-cyan:hover {
+    background: var(--cyan-glow); border-color: var(--cyan-glow);
+    box-shadow: 0 0 36px rgba(0,229,255,0.55);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    background: transparent; color: var(--cyan);
+    border: 2px solid rgba(0,200,224,0.4);
+  }
+  .btn-outline:hover {
+    border-color: var(--cyan); background: rgba(0,200,224,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* cert badges */
+  .cert-row {
+    position: relative; z-index:2;
+    display: flex; gap:16px; flex-wrap:wrap; justify-content:center;
+    margin-top: 44px;
+    animation: fadeDown 1s ease both 0.7s;
+  }
+  .cert {
+    padding: 8px 20px;
+    background: rgba(0,200,224,0.06);
+    border: 1px solid rgba(0,200,224,0.2);
+    border-radius: 30px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing:2px; text-transform:uppercase;
+    color: var(--gray);
+  }
+  .cert strong { color: var(--cyan); }
+
+  @keyframes fadeDown {
+    from { opacity:0; transform:translateY(-18px); }
+    to   { opacity:1; transform:none; }
+  }
+
+  /* ── STATS ── */
+  .stats-strip {
+    background: linear-gradient(90deg, var(--navy-deep), #0d2040, var(--navy-deep));
+    border-top: 1px solid rgba(0,200,224,0.15);
+    border-bottom: 1px solid rgba(0,200,224,0.15);
+    padding: 28px 16px;
+    display: flex; justify-content:center; flex-wrap:wrap;
+  }
+  .stat {
+    padding: 8px 44px; text-align:center;
+    border-right: 1px solid rgba(0,200,224,0.15);
+  }
+  .stat:last-child { border-right:none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; line-height:1;
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgba(0,200,224,0.4);
+  }
+  .stat-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing:3px;
+    color: var(--gray); text-transform:uppercase; margin-top:3px;
+  }
+
+  /* ── GENERIC SECTION ── */
+  .sec { padding: 80px 24px; max-width:1100px; margin:0 auto; }
+
+  .sec-label {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:11px; letter-spacing:5px;
+    color: var(--cyan); text-transform:uppercase; margin-bottom:10px;
+  }
+  .sec-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size: clamp(36px,6vw,62px); line-height:1;
+    color: var(--white); margin-bottom:18px;
+  }
+  .sec-body {
+    font-size:16px; font-weight:300; line-height:1.9;
+    color: #7a9ab8; max-width:620px;
+  }
+
+  /* ── DARK BG SECTIONS ── */
+  .dark-sec { background: #030810; }
+  .dark-sec > .inner { max-width:1100px; margin:0 auto; padding:80px 24px; }
+
+  /* ── PRODUCTS ── */
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px,1fr));
+    gap: 1px; margin-top:48px;
+    border: 1px solid rgba(0,200,224,0.08);
+  }
+  .prod-card {
+    background: #060f1e;
+    padding: 32px 28px;
+    position: relative; overflow:hidden;
+    transition: background 0.3s;
+    border: 1px solid rgba(0,200,224,0.06);
+  }
+  .prod-card::after {
+    content:'';
+    position:absolute; bottom:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    transform: scaleX(0); transform-origin:center;
+    transition: transform 0.4s;
+  }
+  .prod-card:hover { background: #0a1a2e; }
+  .prod-card:hover::after { transform: scaleX(1); }
+
+  .prod-icon { font-size:34px; margin-bottom:14px; display:block; }
+  .prod-name {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:19px; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; color:var(--white); margin-bottom:8px;
+  }
+  .prod-desc {
+    font-size:14px; font-weight:300;
+    color: var(--gray); line-height:1.75;
+  }
+  .prod-tag {
+    display:inline-block; margin-top:14px;
+    background: rgba(0,200,224,0.08);
+    border: 1px solid rgba(0,200,224,0.25);
+    color: var(--cyan);
+    font-size:10px; letter-spacing:2px;
+    text-transform:uppercase; padding:4px 10px; border-radius:2px;
+  }
+
+  /* ── SERVICES ── */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    gap: 12px; margin-top:40px;
+  }
+  .svc-item {
+    display:flex; align-items:flex-start; gap:14px;
+    padding: 18px 20px;
+    background: rgba(0,200,224,0.04);
+    border: 1px solid rgba(0,200,224,0.1);
+    border-radius:3px;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .svc-item:hover { border-color: var(--cyan); background: rgba(0,200,224,0.08); }
+  .svc-dot {
+    width:8px; height:8px; border-radius:50%;
+    background: var(--cyan); flex-shrink:0; margin-top:6px;
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  .svc-text { font-size:14px; font-weight:500; color:#9ab8cc; line-height:1.5; }
+
+  /* ── CLIENTS ── */
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px,1fr));
+    gap: 10px; margin-top:40px;
+  }
+  .client-pill {
+    padding: 14px 18px; text-align:center;
+    background: rgba(0,200,224,0.04);
+    border: 1px solid rgba(0,200,224,0.1);
+    border-radius:3px;
+    font-size:13px; font-weight:500;
+    color: #7a9ab8;
+    transition: all 0.2s;
+  }
+  .client-pill:hover { border-color:var(--cyan); color:var(--cyan); background:rgba(0,200,224,0.08); }
+
+  /* ── CONTACT ── */
+  .contact-wrap {
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,200,224,0.07) 0%, transparent 60%),
+                linear-gradient(180deg, #040d1a 0%, #000000 100%);
+    border-top: 1px solid rgba(0,200,224,0.12);
+  }
+  .contact-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:60px; align-items:center;
+    max-width:1100px; margin:0 auto;
+    padding: 80px 24px;
+  }
+
+  .contact-info { display:flex; flex-direction:column; gap:26px; }
+  .contact-row { display:flex; align-items:flex-start; gap:16px; }
+  .c-icon {
+    width:46px; height:46px; flex-shrink:0;
+    background: rgba(0,200,224,0.08);
+    border: 1px solid rgba(0,200,224,0.2);
+    border-radius:3px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .c-label {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:10px; letter-spacing:3.5px;
+    color:var(--cyan); text-transform:uppercase; margin-bottom:5px;
+  }
+  .c-val { font-size:14px; font-weight:500; color:var(--white); line-height:1.6; }
+  .c-val a { color:var(--white); text-decoration:none; transition:color 0.2s; }
+  .c-val a:hover { color:var(--cyan); }
+
+  .cta-links { display:flex; flex-direction:column; gap:12px; }
+  .cta-btn {
+    display:flex; align-items:center; gap:14px;
+    padding: 16px 24px; border-radius:3px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:15px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none;
+    transition: all 0.25s;
+  }
+  .cta-btn.primary {
+    background: var(--cyan); color: #040d1a;
+    box-shadow: 0 0 20px rgba(0,200,224,0.25);
+  }
+  .cta-btn.primary:hover { background:var(--cyan-glow); transform:translateX(5px); box-shadow:0 0 32px rgba(0,229,255,0.4); }
+
+  .cta-btn.ghost {
+    background:transparent; color:var(--cyan);
+    border: 1px solid rgba(0,200,224,0.3);
+  }
+  .cta-btn.ghost:hover { border-color:var(--cyan); background:rgba(0,200,224,0.07); transform:translateX(5px); }
+
+  footer {
+    background:#000;
+    text-align:center; padding:28px 24px;
+    font-size:13px; color:#3a5068;
+    border-top:1px solid rgba(0,200,224,0.08);
+  }
+  footer a { color:var(--cyan); text-decoration:none; }
+  footer strong { color:#7a9ab8; }
+
+  /* responsive */
+  @media(max-width:680px) {
+    .contact-grid { grid-template-columns:1fr; gap:36px; }
+    .stat { padding:8px 18px; }
+    .stat-num { font-size:30px; }
+  }
+
+  /* scroll reveal */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hex-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <!-- SVG Shield Logo matching the brand -->
+  <svg class="shield-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#00c8e0"/>
+        <stop offset="100%" stop-color="#007fa8"/>
+      </linearGradient>
+    </defs>
+    <!-- Shield outline -->
+    <path d="M60 6 L100 24 L100 68 Q100 96 60 114 Q20 96 20 68 L20 24 Z"
+          fill="rgba(0,200,224,0.08)" stroke="url(#shieldGrad)" stroke-width="2.5"/>
+    <!-- Air flow curves -->
+    <path d="M42 50 Q55 38 68 50 Q75 56 68 64 Q55 76 42 64 Q35 58 42 50Z"
+          fill="none" stroke="#00c8e0" stroke-width="2" opacity="0.7"/>
+    <path d="M35 46 Q58 28 80 46" fill="none" stroke="#00c8e0" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <path d="M35 74 Q58 92 80 74" fill="none" stroke="#00c8e0" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <!-- Center dot -->
+    <circle cx="60" cy="57" r="5" fill="#00c8e0" opacity="0.8"/>
+  </svg>
+
+  <p class="hero-tag">Commercial Air Conditioning · Delhi NCR, India</p>
+  <h1><span class="cyan">BG</span> <span class="dk">Air</span><br><span class="dk">Systems</span></h1>
+  <p class="hero-sub">HVAC / AC Turnkey Projects &amp; Solutions</p>
+  <div class="divider"></div>
+  <p class="hero-desc">
+    A team of professionals with <strong>15+ years of experience</strong> in HVAC projects. From pharmaceutical clean rooms to large commercial complexes — we design, supply, install, and maintain every system we build.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="https://bgairsystems.com/" target="_blank" class="btn btn-cyan">🌐 Visit Website</a>
+    <a href="https://maps.google.com/?q=BG+Air+Systems+Sangam+Vihar+Delhi" target="_blank" class="btn btn-outline">📍 Google Maps</a>
+  </div>
+
+  <div class="cert-row">
+    <div class="cert"><strong>ISO 9001:2015</strong> Certified</div>
+    <div class="cert"><strong>MSME</strong> Registered</div>
+    <div class="cert"><strong>15+ Yrs</strong> Experience</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat"><div class="stat-num">15+</div><div class="stat-lbl">Years Experience</div></div>
+  <div class="stat"><div class="stat-num">7+</div><div class="stat-lbl">Product Categories</div></div>
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-lbl">Key Clients</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Turnkey Solutions</div></div>
+</div>
+
+<!-- ABOUT -->
+<div class="sec reveal">
+  <p class="sec-label">Who We Are</p>
+  <h2 class="sec-title">Your Ultimate Guide in<br>HVAC Design &amp; Execution</h2>
+  <p class="sec-body">
+    BG Air Systems is a Delhi-based commercial HVAC company working with leading brands to deliver quality service across India. Our diverse portfolio spans pharmaceutical HVAC projects, chilled water and cooling water system design, and execution for commercial as well as residential purposes. Our mission: build a healthy, hygienic environment with advanced equipment and new technologies at your workplace.
+  </p>
+</div>
+
+<!-- PRODUCTS -->
+<div class="dark-sec">
+<div class="inner">
+  <p class="sec-label reveal">What We Offer</p>
+  <h2 class="sec-title reveal">Product Range</h2>
+
+  <div class="prod-grid">
+    <div class="prod-card reveal">
+      <span class="prod-icon">🏭</span>
+      <div class="prod-name">Air Handling Unit (AHU)</div>
+      <div class="prod-desc">Double skin construction, energy efficient fans, customized CFM solutions. Used in pharma, clean rooms, and industrial production areas.</div>
+      <span class="prod-tag">Pharmaceutical · Industrial</span>
+    </div>
+    <div class="prod-card reveal">
+      <span class="prod-icon">❄️</span>
+      <div class="prod-name">Chillers</div>
+      <div class="prod-desc">Process, Scroll, Screw &amp; Centrifugal chillers. Air cooled and water cooled with inverter drives for maximum efficiency.</div>
+      <span class="prod-tag">Commercial · Industrial</span>
+    </div>
+    <div class="prod-card reveal">
+      <span class="prod-icon">🌀</span>
+      <div class="prod-name">VRF / VRV System</div>
+      <div class="prod-desc">Multi-split ductless HVAC with individual zone control per floor. 100% inverter advantage, weather-proof ODUs for high ambient conditions.</div>
+      <span class="prod-tag">Offices · Residencies</span>
+    </div>
+    <div class="prod-card reveal">
+      <span class="prod-icon">💧</span>
+      <div class="prod-name">Dehumidifier</div>
+      <div class="prod-desc">Desiccant and condensate types. Allen Bradley PLC controls, UL 508A certified panels, and variable frequency drives.</div>
+      <span class="prod-tag">Industrial · Pharmaceutical</span>
+    </div>
+    <div class="prod-card reveal">
+      <span class="prod-icon">🔵</span>
+      <div class="prod-name">Air Filtration System</div>
+      <div class="prod-desc">Filterless magnetic technology with micro-trapping process. Removes PM 2.5, disease-causing germs and allergens. Ideal for high-pollution areas.</div>
+      <span class="prod-tag">Offices · Commercial</span>
+    </div>
+    <div class="prod-card reveal">
+      <span class="prod-icon">📦</span>
+      <div class="prod-name">DX / Ducted AC Package</div>
+      <div class="prod-desc">Inverter &amp; non-inverter options. High ambient operation up to 52°C. Anti-corrosion condenser fin coating with touchscreen controls.</div>
+      <span class="prod-tag">Pharma · Clean Room</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SERVICES -->
+<div class="sec">
+  <p class="sec-label reveal">What We Do</p>
+  <h2 class="sec-title reveal">End-to-End Services</h2>
+  <p class="sec-body reveal">From free site visit to annual maintenance — we cover every stage of your HVAC project lifecycle.</p>
+
+  <div class="svc-grid">
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Free site visit &amp; heat load calculation</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Bill of material preparation &amp; system design</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Supply of centralized AC units</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Installation, testing &amp; commissioning</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Annual maintenance contract (AMC)</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Repair, spare parts supply &amp; servicing</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Replacement of old units</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Ducting works &amp; flexible ducting systems</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Revamping &amp; retrofit of existing cooling systems</div></div>
+    <div class="svc-item reveal"><div class="svc-dot"></div><div class="svc-text">Process chilled water piping &amp; ancillary works</div></div>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div class="dark-sec">
+<div class="inner">
+  <p class="sec-label reveal">Trusted By</p>
+  <h2 class="sec-title reveal">Our Clients</h2>
+
+  <div class="clients-grid">
+    <div class="client-pill reveal">Dharamshila Rahat Medical Centre</div>
+    <div class="client-pill reveal">Hinduja Global Limited</div>
+    <div class="client-pill reveal">D-Decor</div>
+    <div class="client-pill reveal">Modern School</div>
+    <div class="client-pill reveal">Nova Iron &amp; Steel Ltd</div>
+    <div class="client-pill reveal">Shivalikview Steel Trading</div>
+    <div class="client-pill reveal">KSK Academy</div>
+    <div class="client-pill reveal">Lite Bite Food Restaurant</div>
+    <div class="client-pill reveal">Mera Parivar (Institute)</div>
+    <div class="client-pill reveal">Wings Hospital, Surat</div>
+    <div class="client-pill reveal">Apollo Group</div>
+    <div class="client-pill reveal">Prime Hospital, Rajkot</div>
+    <div class="client-pill reveal">SRL Diagnostics</div>
+    <div class="client-pill reveal">Porbandar Critical Care LLP</div>
+    <div class="client-pill reveal">Janak Smarak Hospital</div>
+    <div class="client-pill reveal">Embrion Hospital</div>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-wrap">
+<div class="contact-grid">
+  <div class="contact-info reveal">
+    <p class="sec-label">Reach Us</p>
+    <h2 class="sec-title">Let's Talk<br><span style="color:var(--cyan)">HVAC</span></h2>
+
+    <div class="contact-row">
+      <div class="c-icon">📞</div>
+      <div>
+        <div class="c-label">Phone</div>
+        <div class="c-val">
+          <a href="tel:+918993623030">+91-899362303</a> &nbsp;/&nbsp;
+          <a href="tel:+919899472511">9899472511</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="c-icon">✉️</div>
+      <div>
+        <div class="c-label">Email</div>
+        <div class="c-val"><a href="mailto:bgairsystems@gmail.com">bgairsystems@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="c-icon">📍</div>
+      <div>
+        <div class="c-label">Address</div>
+        <div class="c-val">No. 75, Gali No. 2, Sani Bazar,<br>I Block, Sangam Vihar,<br>Pushpa Bhawani, Delhi</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-links reveal">
+    <a href="https://bgairsystems.com/" target="_blank" class="cta-btn primary">🌐 &nbsp; Visit Our Website</a>
+    <a href="https://maps.google.com/?q=No+75+Gali+No+2+Sani+Bazar+Sangam+Vihar+Delhi" target="_blank" class="cta-btn ghost">📍 &nbsp; Find on Google Maps</a>
+    <a href="mailto:bgairsystems@gmail.com" class="cta-btn ghost">✉️ &nbsp; Send an Inquiry</a>
+    <a href="tel:+918993623030" class="cta-btn ghost">📞 &nbsp; Call Us Now</a>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>BG Air Systems</strong> — Commercial Air Conditioning, Delhi NCR &nbsp;·&nbsp; ISO 9001:2015 Certified &nbsp;·&nbsp; MSME Registered</p>
+  <p style="margin-top:8px;"><a href="https://bgairsystems.com/" target="_blank">bgairsystems.com</a></p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
